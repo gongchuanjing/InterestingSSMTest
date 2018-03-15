@@ -4,4 +4,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="tk.chuanjing.ssmtest.dao.BaseDictDao">
 
+	<select id="getDictListByTypeCode" parameterType="string" resultType="BaseDict">
+		SELECT * FROM `base_dict` WHERE dict_type_code = #{typeCode};
+	</select>
+	
 </mapper>
