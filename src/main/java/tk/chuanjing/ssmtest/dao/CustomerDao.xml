@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tk.chuanjing.ssmtest.dao.CustomerDao">
+
+	<sql id="customer_list_where">
+		<where>
+			<if test="custName != null and custName != ''">
+				AND cust_name LIKE '%${custName}%'
+			</if>
+			<if test="custSource != null and custSource != ''">
+				AND cust_source = #{custSource}
+			</if>
+			<if test="custIndustory != null and custIndustory != ''">
+				AND cust_industry = #{custIndustory}
+			</if>
+			<if test="custLevel != null and custLevel != ''">
+				AND cust_level = #{custLevel}
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 根据条件查询客户 -->
+	<select id="getCustomerList" parameterType="queryvo" resultType="customer">
+		<!--
+		SELECT
+			a.cust_id,
+			a.cust_name,
+			a.cust_user_id,
+			a.cust_create_id,
+			b.dict_item_name cust_source,
+			c.dict_item_name cust_industry,
+			d.dict_item_name cust_level,
+			a.cust_linkman,
+			a.cust_phone,
+			a.cust_mobile,
+			a.cust_zipcode,
+			a.cust_address,
+			a.cust_createtime
+		FROM
+			customer a
+			LEFT JOIN base_dict b ON a.cust_source = b.dict_id
+			LEFT JOIN base_dict c ON a.cust_industry = c.dict_id
+			LEFT JOIN base_dict d ON a.cust_level = d.dict_id
+		WHERE
+			cust_name LIKE '%马%'
+			AND cust_source = 6
+			AND cust_industry = 2
+			AND cust_level = 22
+		LIMIT
+			1,10
+		-->
+		SELECT
+			a.cust_id,
+			a.cust_name,
+			a.cust_user_id,
+			a.cust_create_id,
+			b.dict_item_name cust_source,
+			c.dict_item_name cust_industry,
+			d.dict_item_name cust_level,
+			a.cust_linkman,
+			a.cust_phone,
+			a.cust_mobile,
+			a.cust_zipcode,
+			a.cust_address,
+			a.cust_createtime
+		FROM
+			customer a
+			LEFT JOIN base_dict b ON a.cust_source = b.dict_id
+			LEFT JOIN base_dict c ON a.cust_industry = c.dict_id
+			LEFT JOIN base_dict d ON a.cust_level = d.dict_id
+		<include refid="customer_list_where" />
+		<if test="start != null">
+			LIMIT #{start}, #{size};
+		</if>
+	</select>
+	
+	<!-- 查询用户总数 -->
+	<select id="getCustomerListCount" parameterType="QueryVo" resultType="int">
+		SELECT
+			count(0)
+		FROM
+			customer a
+			LEFT JOIN base_dict b ON a.cust_source = b.dict_id
+			LEFT JOIN base_dict c ON a.cust_industry = c.dict_id
+			LEFT JOIN base_dict d ON a.cust_level = d.dict_id
+		<include refid="customer_list_where" />
+	</select>
+	
+	<!-- 根据id查询客户 -->
+	<select id="getCustomerById" parameterType="long" resultType="customer">
+		SELECT
+			*
+		FROM
+			customer
+		WHERE
+			cust_id = #{id};
+	</select>
+	
+	<!-- 修改客户 -->
+	<update id="updateCustomer" parameterType="customer">
+		UPDATE customer
+			<set>
+				<if test="cust_name!=null">
+					cust_name=#{cust_name},
+				</if>
+				<if test="cust_user_id!=null">
+					cust_user_id=#{cust_user_id},
+				</if>
+				<if test="cust_create_id!=null">
+					cust_create_id=#{cust_create_id},
+				</if>
+				<if test="cust_source!=null">
+					cust_source=#{cust_source},
+				</if>
+				<if test="cust_industry!=null">
+					cust_industry=#{cust_industry},
+				</if>
+				<if test="cust_level!=null">
+					cust_level=#{cust_level},
+				</if>
+				<if test="cust_linkman!=null">
+					cust_linkman=#{cust_linkman},
+				</if>
+				<if test="cust_phone!=null">
+					cust_phone=#{cust_phone},
+				</if>
+				<if test="cust_mobile!=null">
+					cust_mobile=#{cust_mobile},
+				</if>
+				<if test="cust_zipcode!=null">
+					cust_zipcode=#{cust_zipcode},
+				</if>
+				<if test="cust_address!=null">
+					cust_address=#{cust_address},
+				</if>
+				<if test="cust_createtime!=null">
+					cust_createtime=#{cust_createtime},
+				</if>
+			</set>
+		WHERE
+			cust_id = #{cust_id}
+	</update>
+	
+	<!-- 根据id删除客户 -->
+	<delete id="deleteCustomer" parameterType="long">
+		DELETE
+		FROM
+			customer
+		WHERE
+			cust_id = #{id};
+	</delete>
+</mapper>
