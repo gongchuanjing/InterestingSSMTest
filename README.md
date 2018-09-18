@@ -6,6 +6,7 @@ SSM框架整合的一个小测试。实现对客户数据的增删改查
 	eclipse：Luna Service Release 1 (4.4.1) (简称：eclipse luna-SR1_4.4.1)
 	JDK：1.8.0_92
 	maven:apache-maven-3.3.9
+	数据库脚本：src\main\webapp\WEB-INF\数据库脚本.sql
 
 ## 打个广告：其他技术的整理
 JavaSE：[InterestingJavaSE](https://github.com/gongchuanjing/InterestingJavaSE.git)
