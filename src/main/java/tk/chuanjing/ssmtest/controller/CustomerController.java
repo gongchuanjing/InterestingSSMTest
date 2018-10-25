@@ -1,6 +1,5 @@
 package tk.chuanjing.ssmtest.controller;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -98,4 +97,9 @@ public class CustomerController {
 		return "OK";
 	}
 	
+	@RequestMapping("/customer/test")
+//	@ResponseBody
+	public String test() {
+		return "OK,我来了";
+	}
 }
